@@ -2,7 +2,6 @@ import {useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
 import {getProductByIdQuery} from "../constants";
 import AddToShoppingCart from "./AddToShoppingCart";
-import Product from "./Product";
 
 function ProductInfo() {
     let { id } = useParams();
@@ -19,7 +18,8 @@ function ProductInfo() {
             <p>Id: {data.getProductById.id}</p>
             <p>Price: {data.getProductById.price}</p>
             <p>Description: {data.getProductById.description}</p>
-            <AddToShoppingCart id={ data.getProductById.id}></AddToShoppingCart>
+            <p>Category: {data.getProductById.category}</p>
+            <AddToShoppingCart id={id}></AddToShoppingCart>
         </div>
     );
 

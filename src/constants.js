@@ -9,6 +9,7 @@ export const getProductsQuery = gql`
                 description
                 id
                 price
+                category
             }
         }`;
 
@@ -19,6 +20,7 @@ export const getProductByIdQuery = gql`
                 description
                 id
                 price
+                category
             }
         }`;
 

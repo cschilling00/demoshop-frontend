@@ -14,14 +14,10 @@ function Home() {
             <ul>
                 {data.getProduct.map(item => (
                     <li key={item.id}>
-                        <Product item={item}></Product>
+                        <Product item={item}>{item.name}</Product>
                     </li>
                 ))}
             </ul>
-            {/*<button onClick={() => this.handleClick()}>*/}
-            {/*    Neues Produkt*/}
-            {/*</button>*/}
-
         </div>
     );
 

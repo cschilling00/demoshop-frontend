@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from "./Components/Home";
-import AddToShoppingCart from "./Components/AddToShoppingCart";
 import ProductInfo from "./Components/ProductInfo";
 import {ApolloClient, gql, InMemoryCache} from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import {graphqlApi, getProductsQuery} from "./constants";
+import ShoppingCart from "./Components/ShoppingCart";
 
 const client = new ApolloClient({
     uri: graphqlApi,
@@ -29,7 +29,7 @@ function App() {
                       <Home />
                   </Route>
                   <Route path="/shoppingCart">
-                      <AddToShoppingCart />
+                      <ShoppingCart />
                   </Route>
                   <Route path="/product/:id" children={<ProductInfo />}>
                   </Route>

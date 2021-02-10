@@ -1,20 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 function AddToShoppingCart(props) {
-    const [productsIds, setproductsIds] = useState([]);
 
-    console.log("Props: " +props.id)
-    console.log(productsIds);
-
+    let productIds = sessionStorage.getItem('id').split(',')
+    console.log("productid: "+productIds)
 
     function handleClick() {
         console.log("Product with id "+ props.id + " should be added to shopping cart");
-        setproductsIds([
-            ...productsIds, props.id
-
-        ]);
-        console.log(productsIds);
-
+        productIds.push(props.id);
+        sessionStorage.setItem('id', productIds)
+        console.log(sessionStorage.getItem('id'))
     }
 
         return (
@@ -22,10 +17,6 @@ function AddToShoppingCart(props) {
                 <button onClick={handleClick}>Add to Shopping Cart</button>
             </div>
         );
-
-
-
-
 }
 
 export default AddToShoppingCart;
