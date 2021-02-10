@@ -1,7 +1,6 @@
 import React from 'react';
 import {useQuery} from "@apollo/client";
-import {getProductByIdQuery, getProductsQuery} from "../constants";
-import Product from "./Product";
+import {getProductsQuery} from "../constants";
 
 function ShoppingCart() {
     const {loading, error, data} = useQuery(getProductsQuery);
@@ -10,28 +9,17 @@ function ShoppingCart() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error ${error.message}</p>;
 
-    console.log("ShoppingCart: " + sessionStorage.getItem('id').split(','));
-    let productIds = [];
     let products = data.getProduct;
+    let shoppingListIds = new Map();
     let shoppingList = [];
-    productIds = sessionStorage.getItem('id').split(',');
-    console.log("ProductIds: " + productIds);
 
+    for (let i = 0; i < sessionStorage.length; i++){
+        let key = sessionStorage.key(i);
+        let value = sessionStorage.getItem(key);
+        console.log(key, value);
 
-    // let productIdsMap = productIds.map((value, key) => ({key, value}));
-    // let iterator = productIdsMap.entries();
-    // console.log("productIdsMap" + productIdsMap)
-    // console.log("productIdsMap" + iterator.next().value)
-    // console.log("productIdsMap" + iterator.next().value)
-
-
-
-
-
-    for (let productId of productIds) {
-        for(let product of products){
-            console.log(productId + product.id)
-            if (productId == product.id){
+        for (let product of products){
+            if (product.id == value){
                 shoppingList.push(product)
             }
         }
@@ -42,8 +30,8 @@ function ShoppingCart() {
         <div>
             <h3>Shopping List</h3>
             <ul>
-            {shoppingList.map(item => (
-                <li key={item.id}>
+            {shoppingList.map((item, index) => (
+                <li key={index}>
                     <p>Name: {item.name}</p>
                     <p>Id: {item.id}</p>
                     <p>Price: {item.price}</p>
@@ -55,10 +43,6 @@ function ShoppingCart() {
 
         </div>
     );
-
-
-
-
 }
 
 export default ShoppingCart;
