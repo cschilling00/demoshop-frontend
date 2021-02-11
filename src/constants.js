@@ -24,3 +24,16 @@ export const getProductByIdQuery = gql`
             }
         }`;
 
+export const createOrderMutation = gql`
+  mutation CreateOrder($order: OrderInput) {
+    createOrder(order: $order) {
+      id  
+      orderDate
+      price
+      productIds 
+    }
+  }
+  
+`;
+
+

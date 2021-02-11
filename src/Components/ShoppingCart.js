@@ -1,6 +1,7 @@
 import React from 'react';
 import {useQuery} from "@apollo/client";
 import {getProductsQuery} from "../constants";
+import CreateOrder from "./CreateOrder";
 
 function ShoppingCart() {
     const {loading, error, data} = useQuery(getProductsQuery);
@@ -10,7 +11,6 @@ function ShoppingCart() {
     if (error) return <p>Error ${error.message}</p>;
 
     let products = data.getProduct;
-    let shoppingListIds = new Map();
     let shoppingList = [];
 
     for (let i = 0; i < sessionStorage.length; i++){
@@ -23,23 +23,20 @@ function ShoppingCart() {
                 shoppingList.push(product)
             }
         }
-
     }
 
     return (
         <div>
             <h3>Shopping List</h3>
             <ul>
-            {shoppingList.map((item, index) => (
-                <li key={index}>
-                    <p>Name: {item.name}</p>
-                    <p>Id: {item.id}</p>
-                    <p>Price: {item.price}</p>
-                    <p>Description: {item.description}</p>
-                    <p>Category: {item.category}</p>
-                </li>
-            ))}
-        </ul>
+                {shoppingList.map((item, index) => (
+                    <li key={index}>
+                        <p>Name: {item.name}</p>
+                        <p>Price: {item.price}</p>
+                    </li>
+                ))}
+            </ul>
+            <CreateOrder products={shoppingList}></CreateOrder>
 
         </div>
     );
