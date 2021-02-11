@@ -6,6 +6,7 @@ import {ApolloClient, gql, InMemoryCache} from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import {graphqlApi, getProductsQuery} from "./constants";
 import ShoppingCart from "./Components/ShoppingCart";
+import Navbar from "./Components/Navbar";
 
 const client = new ApolloClient({
     uri: graphqlApi,
@@ -24,6 +25,7 @@ function App() {
       <div className="App">
       <h1>Welcome to the Shop!</h1>
           <Router>
+              <Navbar></Navbar>
               <Switch>
                   <Route exact path="/">
                       <Home />
