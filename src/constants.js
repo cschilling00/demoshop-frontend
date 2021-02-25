@@ -1,10 +1,11 @@
 import {gql} from "@apollo/client";
 
-export const graphqlApi = "http://localhost:3000/graphql";
+// export const productserviceApi = "http://localhost:3000/graphql";
+// export const usermanagementApi = "http://localhost:8081/graphql";
 
 export const getProductsQuery = gql`
         query {
-            getProduct {
+            getProducts {
                 name
                 description
                 id
@@ -35,5 +36,14 @@ export const createOrderMutation = gql`
   }
   
 `;
+
+export const loginQuery = gql`
+  query Login($credentials: LoginInput) {
+    login(credentials: $credentials) {
+    token
+    }
+  }  
+`;
+
 
 

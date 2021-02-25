@@ -10,7 +10,7 @@ function ShoppingCart() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error ${error.message}</p>;
 
-    let products = data.getProduct;
+    let products = data.getProducts;
     let shoppingList = [];
 
     for (let i = 0; i < sessionStorage.length; i++){
@@ -19,7 +19,7 @@ function ShoppingCart() {
         console.log(key, value);
 
         for (let product of products){
-            if (product.id == value){
+            if (product.id === value){
                 shoppingList.push(product)
             }
         }

@@ -6,7 +6,6 @@ function CreateOrder(props) {
     let products = props.products
     let productIds = [];
     let price = 0;
-    let mutationResult = "";
     for (let product of products){
         productIds.push(product.id)
         price += product.price

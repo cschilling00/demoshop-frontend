@@ -12,7 +12,7 @@ function Home() {
     return (
         <div>
             <ul>
-                {data.getProduct.map(item => (
+                {data.getProducts.map(item => (
                     <li key={item.id}>
                         <Product item={item}>{item.name}</Product>
                     </li>

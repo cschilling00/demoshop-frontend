@@ -5,8 +5,9 @@ function Navbar() {
 
     return (
         <div>
-            <Link to={"/shoppingCart"}>ShoppingCart</Link>
             <Link to={"/"}>Home</Link>
+            <Link to={"/shoppingCart"}>ShoppingCart</Link>
+            <Link to={"/login"}>Login</Link>
         </div>
     );
 }
