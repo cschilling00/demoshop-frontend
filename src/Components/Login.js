@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {ApolloClient, InMemoryCache, useMutation, useQuery,useLazyQuery} from "@apollo/client";
-import {getProductByIdQuery, getProductsQuery, loginQuery} from "../constants";
+import {useLazyQuery} from "@apollo/client";
+import {loginQuery} from "../constants";
 
 function Login() {
 
-    const [username, setUsername] = useState('username');
+    const [username, setUsername] = useState('user');
     const [password, setPassword] = useState('password');
     const [
         loginFunction,
@@ -15,31 +15,23 @@ function Login() {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error ${error.message}</p>;
-    function handleClick() {
-        loginFunction()
 
-        // console.log(data.login.token)
-        // login({
-        //     // update: (proxy, mutationResult) => {
-        //     //     console.log('mutationResult: ', mutationResult);
-        //     //     console.log('token: ', mutationResult.data.token);
-        //     // },
-        //     variables: {credentials: {username: username, password: password}}
-        // });
+    function handleClick() {
+        if (!sessionStorage.key('token')){
+            loginFunction()
+        }
     }
-    //
-    // function handleClick(event) {
-    //     alert('A name was submitted: ' + username);
-    //     event.preventDefault();
-    // }
+
     if (data && data.login) {
         console.log(data.login);
+        sessionStorage.setItem("token", data.login.token)
+        sessionStorage.setItem("userId", data.login.userId)
     }
     function changeUsername(event) {
-        setUsername({value: event.target.value});
+        setUsername(event.target.value);
     }
     function changePassword(event) {
-        setPassword({value: event.target.value});
+        setPassword(event.target.value);
     }
 
 
@@ -49,19 +41,16 @@ function Login() {
                 <form onSubmit={handleClick}>
                     <label>
                         Username:
-                        <input type="text" value={username} onChange={changeUsername}/>
+                        <input type="text"  onChange={changeUsername}/>
                     </label>
                     <p><label>
                         Password:
-                        <input type="text" value={password} onChange={changePassword}/>
+                        <input type="text" onChange={changePassword}/>
                     </label></p>
                     <input type="submit" value="Submit"/>
                 </form>
-                {data && data.login && data.login.token }
             </div>
-
         );
-
 }
 
 export default Login;

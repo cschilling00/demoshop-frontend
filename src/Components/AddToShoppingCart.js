@@ -1,12 +1,12 @@
 import React from 'react';
 
 function AddToShoppingCart(props) {
-    let count = sessionStorage.length;
+    let count = localStorage.length;
 
     function handleClick() {
         console.log("Product with id "+ props.id + " should be added to shopping cart");
-        sessionStorage.setItem('cartItem_'+count, props.id)
-        console.log(sessionStorage.getItem('cartItem_'+count))
+        localStorage.setItem('cartItem_'+count, props.id)
+        console.log(localStorage.getItem('cartItem_'+count))
         count++;
     }
         return (

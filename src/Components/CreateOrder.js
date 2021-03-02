@@ -4,28 +4,33 @@ import {createOrderMutation} from "../constants";
 
 function CreateOrder(props) {
     let products = props.products
-    let productIds = [];
     let price = 0;
+    let userId = ""
+    if(sessionStorage.getItem('userId')){
+        userId = sessionStorage.getItem('userId')
+    }
     for (let product of products){
-        productIds.push(product.id)
         price += product.price
     }
-    console.log(productIds)
     const [createOrder] = useMutation(createOrderMutation);
 
-
     function handleClick() {
-        createOrder({
-            update: (proxy, mutationResult) => {
-                console.log('mutationResult: ', mutationResult);
-            },
-            variables: {order: {id: "", orderDate: new Date().toLocaleDateString(), price: price, productIds: productIds}}
-        });
-    }
+            createOrder({
+
+                update: (proxy, mutationResult) => {
+                    console.log('mutationResult: ', mutationResult);
+                },
+                variables: {order: {id: "", orderDate: new Date().toLocaleDateString(), price: price, products: products, userId: userId }}
+            }).catch(error => {
+                console.error("error" + error)
+                alert(error + '! Please login');
+            });
+        }
 
     return (
         <div>
-            <button onClick={handleClick}>Create Order</button>
+            <button onClick={handleClick}>Order now</button>
+
         </div>
     );
 }

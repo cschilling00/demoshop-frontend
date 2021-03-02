@@ -25,22 +25,43 @@ export const getProductByIdQuery = gql`
             }
         }`;
 
+
 export const createOrderMutation = gql`
   mutation CreateOrder($order: OrderInput) {
     createOrder(order: $order) {
       id  
       orderDate
       price
-      productIds 
+      userId
+      products{
+      name
+      price
+      }
     }
   }
   
 `;
 
+export const getOrderByUserIdQuery = gql`
+        query Order($id: String!){
+            getOrderByUserId(id: $id)  {
+                orderDate
+                id
+                price
+                products{
+                    id
+                    name
+                    price
+                }
+            }
+        }`;
+
+
 export const loginQuery = gql`
   query Login($credentials: LoginInput) {
     login(credentials: $credentials) {
     token
+    userId
     }
   }  
 `;

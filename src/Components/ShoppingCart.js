@@ -13,9 +13,9 @@ function ShoppingCart() {
     let products = data.getProducts;
     let shoppingList = [];
 
-    for (let i = 0; i < sessionStorage.length; i++){
-        let key = sessionStorage.key(i);
-        let value = sessionStorage.getItem(key);
+    for (let i = 0; i < localStorage.length; i++){
+        let key = localStorage.key(i);
+        let value = localStorage.getItem(key);
         console.log(key, value);
 
         for (let product of products){
@@ -25,9 +25,14 @@ function ShoppingCart() {
         }
     }
 
+    function handleClick() {
+        localStorage.clear()
+        window.location.reload(false)
+    }
+
     return (
         <div>
-            <h3>Shopping List</h3>
+            <h3>Shopping Cart</h3>
             <ul>
                 {shoppingList.map((item, index) => (
                     <li key={index}>
@@ -37,6 +42,7 @@ function ShoppingCart() {
                 ))}
             </ul>
             <CreateOrder products={shoppingList}></CreateOrder>
+            <button onClick={handleClick}>Clear shopping cart</button>
 
         </div>
     );
