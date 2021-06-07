@@ -1,26 +1,37 @@
 import {useParams} from "react-router-dom";
-import {useQuery} from "@apollo/client";
-import {getProductByIdQuery} from "../constants";
 import AddToShoppingCart from "./AddToShoppingCart";
+import {Get} from "react-axios";
 
 function ProductInfo() {
     let { id } = useParams();
-    const {loading, error, data} = useQuery(getProductByIdQuery, {
-        variables: {id},
-    });
-    console.log(data);
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error ${error.message}</p>;
+
 
     return (
-        <div>
-            <p>Name: {data.getProductById.name}</p>
-            <p>Id: {data.getProductById.id}</p>
-            <p>Price: {data.getProductById.price}</p>
-            <p>Description: {data.getProductById.description}</p>
-            <p>Category: {data.getProductById.category}</p>
-            <AddToShoppingCart id={id}></AddToShoppingCart>
-        </div>
+        <Get url="/products" params={{id: id}}>
+            {(error, response, isLoading, makeRequest, axios) => {
+                if(error) {
+                    return (<div>Something bad happened: {error.message} <button onClick={() => makeRequest({ params: { reload: true } })}>Retry</button></div>)
+                }
+                else if(isLoading) {
+                    return (<div>Loading...</div>)
+                }
+                else if(response !== null) {
+                    console.log(response.data)
+                    return (
+                        <div>
+                            <p>Name: {response.data[0].name}</p>
+                            <p>Id: {response.data[0].id}</p>
+                            <p>Price: {response.data[0].price}</p>
+                            <p>Description: {response.data[0].description}</p>
+                            <p>Category: {response.data[0].category}</p>
+                            <AddToShoppingCart id={id}></AddToShoppingCart>
+                        </div>
+                    )
+                }
+                return (<div>Default message before request is made.</div>)
+            }}
+        </Get>
+
     );
 
 }

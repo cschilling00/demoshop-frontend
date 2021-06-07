@@ -1,7 +1,6 @@
 import Product from "./Product";
 import React from 'react';
 import {useQuery} from "@apollo/client";
-import jwt_decode from "jwt-decode";
 import {getOrderByUserIdQuery} from "../constants";
 function MyOrders() {
     let userId = ""

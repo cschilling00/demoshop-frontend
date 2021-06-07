@@ -2,55 +2,48 @@ import React from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from "./Components/Home";
 import ProductInfo from "./Components/ProductInfo";
-import {ApolloClient, createHttpLink, InMemoryCache} from '@apollo/client';
-import { ApolloProvider } from '@apollo/client';
 import ShoppingCart from "./Components/ShoppingCart";
 import Navbar from "./Components/Navbar";
 import Login from "./Components/Login";
-import {setContext} from "@apollo/client/link/context";
 import MyOrders from "./Components/MyOrders";
 import Logout from "./Components/Logout";
+import axios from "axios";
+import AxiosProvider from "react-axios/lib/components/AxiosProvider";
 
-// const client = new ApolloClient({
-//     uri: '/productservice',
-//     cache: new InMemoryCache()
+// const authLink = setContext((_, { headers }) => {
+//     // get the authentication token from local storage if it exists
+//     const token = sessionStorage.getItem('token');
+//     console.log(sessionStorage.getItem('token'))
+//     // return the headers to the context so httpLink can read them
+//     if(token){
+//         return {
+//             headers: {
+//                 ...headers,
+//                 Authorization: `Bearer ${token}`,
+//             }
+//         }
+//     }
 // });
-// const usermanagement = new ApolloClient({
-//     uri: '/usermanagement',
-//     cache: new InMemoryCache()
-// })
 
-const httpLinkUsermanagement = createHttpLink({
-    uri: '/usermanagement',
+
+
+let token = sessionStorage.getItem('token');
+let headers = null;
+if(token){
+    headers =  {'Authorization': `Bearer ${token}` }
+
+}
+
+const usermanagement = axios.create({
+    baseURL: '/usermanagement',
+    timeout: 2000,
+    headers: headers
 });
 
-const httpLinkProductService = createHttpLink({
-    uri: '/productservice',
-});
-
-const authLink = setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists
-    const token = sessionStorage.getItem('token');
-    console.log(sessionStorage.getItem('token'))
-    // return the headers to the context so httpLink can read them
-    if(token){
-        return {
-            headers: {
-                ...headers,
-                Authorization: `Bearer ${token}`,
-            }
-        }
-    }
-});
-
-const usermanagement = new ApolloClient({
-    link: authLink.concat(httpLinkUsermanagement),
-    cache: new InMemoryCache()
-});
-
-const productservice = new ApolloClient({
-    link: authLink.concat(httpLinkProductService),
-    cache: new InMemoryCache()
+const productservice = axios.create({
+    baseURL: '/productservice',
+    timeout: 2000,
+    headers: headers
 });
 
 function App() {
@@ -60,7 +53,7 @@ function App() {
           <Router>
               <Navbar></Navbar>
 
-              <ApolloProvider client={productservice}>
+              <AxiosProvider instance={productservice}>
               <Switch>
                       <Route exact path="/">
                           <Home />
@@ -75,16 +68,16 @@ function App() {
                       <MyOrders></MyOrders>
                   </Route>
               </Switch>
-              </ApolloProvider>
+              </AxiosProvider>
               <Switch>
-                  <ApolloProvider client={usermanagement}>
+                  <AxiosProvider instance={usermanagement}>
                       <Route path="/login">
                           <Login></Login>
                       </Route>
                       <Route path="/logout">
                           <Logout></Logout>
                       </Route>
-                  </ApolloProvider>
+                  </AxiosProvider>
               </Switch>
           </Router>
       </div>

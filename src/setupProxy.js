@@ -4,8 +4,9 @@ module.exports = function (app) {
     app.use(
         '/productservice',
         createProxyMiddleware({
-            target: 'http://localhost:8080/graphql',
+            target: 'http://localhost:8080',
             changeOrigin: true,
+            pathRewrite: {'/productservice':''}
         })
     );
 
@@ -14,8 +15,7 @@ module.exports = function (app) {
         createProxyMiddleware({
             target: 'http://localhost:8081',
             changeOrigin: true,
-            pathRewrite: {'/usermanagement':'graphql'}
-
+            pathRewrite: {'/usermanagement':''}
         })
     );
 

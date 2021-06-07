@@ -1,39 +1,22 @@
 import React, {useState} from 'react';
-import {useLazyQuery} from "@apollo/client";
-import {loginQuery} from "../constants";
+import {Post} from "react-axios";
 
 function Login() {
 
     const [username, setUsername] = useState('user');
     const [password, setPassword] = useState('password');
-    const [
-        loginFunction,
-        {error, loading, data }
-    ] = useLazyQuery(loginQuery, {
-        variables: {credentials:{username: username, password: password}},
-    });
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error ${error.message}</p>;
+    let submitAllowed = false;
 
     function handleClick() {
-        if (!sessionStorage.key('token')){
-            loginFunction()
-        }
+        // submitAllowed = true;
     }
 
-    if (data && data.login) {
-        console.log(data.login);
-        sessionStorage.setItem("token", data.login.token)
-        sessionStorage.setItem("userId", data.login.userId)
-    }
     function changeUsername(event) {
         setUsername(event.target.value);
     }
     function changePassword(event) {
         setPassword(event.target.value);
     }
-
 
         return (
             <div>
@@ -49,6 +32,27 @@ function Login() {
                     </label></p>
                     <input type="submit" value="Submit"/>
                 </form>
+
+                {!sessionStorage.key('token') &&
+                    <Post url="/users/login" data={{'username': username,
+                        'password': password }}>
+                        {(error, response, isLoading, makeRequest, axios) => {
+                            if(error) {
+                                return (<div>Something bad happened: {error.message} <button onClick={() => makeRequest({ params: { reload: true } })}>Retry</button></div>)
+                            }
+                            else if(isLoading) {
+                                return (<div>Loading...</div>)
+                            }
+                            else if(response !== null) {
+                                console.log(response.data);
+                                sessionStorage.setItem("token", response.data.token);
+                                sessionStorage.setItem("userId", response.data.userId);
+                            }
+                            return (<div>Default message before request is made.</div>)
+                        }}
+                    </Post>
+
+                }
             </div>
         );
 }
