@@ -38,7 +38,7 @@ function Login() {
                         'password': password }}>
                         {(error, response, isLoading, makeRequest, axios) => {
                             if(error) {
-                                return (<div>Something bad happened: {error.message} <button onClick={() => makeRequest({ params: { reload: true } })}>Retry</button></div>)
+                                return (<div>An error occured: {error.message} <button onClick={() => makeRequest({ params: { reload: true } })}>Retry</button></div>)
                             }
                             else if(isLoading) {
                                 return (<div>Loading...</div>)
@@ -48,7 +48,7 @@ function Login() {
                                 sessionStorage.setItem("token", response.data.token);
                                 sessionStorage.setItem("userId", response.data.userId);
                             }
-                            return (<div>Default message before request is made.</div>)
+                            return (<div></div>)
                         }}
                     </Post>
 

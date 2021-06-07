@@ -7,7 +7,8 @@ import Navbar from "./Components/Navbar";
 import Login from "./Components/Login";
 import MyOrders from "./Components/MyOrders";
 import Logout from "./Components/Logout";
-import axios from "axios";
+import productserviceApi from "./productserviceApi";
+import usermanagementApi from "./usermanagementApi";
 import AxiosProvider from "react-axios/lib/components/AxiosProvider";
 
 // const authLink = setContext((_, { headers }) => {
@@ -27,24 +28,24 @@ import AxiosProvider from "react-axios/lib/components/AxiosProvider";
 
 
 
-let token = sessionStorage.getItem('token');
-let headers = null;
-if(token){
-    headers =  {'Authorization': `Bearer ${token}` }
-
-}
-
-const usermanagement = axios.create({
-    baseURL: '/usermanagement',
-    timeout: 2000,
-    headers: headers
-});
-
-const productservice = axios.create({
-    baseURL: '/productservice',
-    timeout: 2000,
-    headers: headers
-});
+// let token = sessionStorage.getItem('token');
+// let headers = null;
+// if(token){
+//     headers =  {'Authorization': `Bearer ${token}` }
+//
+// }
+//
+// const usermanagement = axios.create({
+//     baseURL: '/usermanagement',
+//     timeout: 2000,
+//     headers: headers
+// });
+//
+// export const axiosProductservice = axios.create({
+//     baseURL: '/productservice',
+//     timeout: 2000,
+//     headers: headers
+// });
 
 function App() {
   return (
@@ -53,7 +54,7 @@ function App() {
           <Router>
               <Navbar></Navbar>
 
-              <AxiosProvider instance={productservice}>
+              <AxiosProvider instance={productserviceApi}>
               <Switch>
                       <Route exact path="/">
                           <Home />
@@ -70,7 +71,7 @@ function App() {
               </Switch>
               </AxiosProvider>
               <Switch>
-                  <AxiosProvider instance={usermanagement}>
+                  <AxiosProvider instance={usermanagementApi}>
                       <Route path="/login">
                           <Login></Login>
                       </Route>

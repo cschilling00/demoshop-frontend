@@ -28,7 +28,7 @@ function Home() {
                         </div>
                     )
                 }
-                return (<div>Default message before request is made.</div>)
+                return (<div></div>)
             }}
         </Get>
     </div>

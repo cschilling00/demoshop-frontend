@@ -1,7 +1,7 @@
 import React from 'react';
 import {Get, Post} from "react-axios";
+import productserviceApi from "../productserviceApi";
 import axios from "axios";
-
 function CreateOrder(props) {
     let products = props.products
     let price = 0;
@@ -21,20 +21,41 @@ function CreateOrder(props) {
             products: products,
             userId: userId };
 
-        axios.post(`/orders`, { order })
+            // return(<Post url="/orders" data={{order}}>
+            //             {(error, response, isLoading, makeRequest, axios) => {
+            //                 if(error) {
+            //                     return (<div>An error occured: {error.message} <button onClick={() => makeRequest({ params: { reload: true } })}>Retry</button></div>)
+            //                 }
+            //                 else if(isLoading) {
+            //                     return (<div>Loading...</div>)
+            //                 }
+            //                 else if(response !== null) {
+            //                     console.log(response.data);
+            //                 }
+            //                 return (<div></div>)
+            //             }}
+            //         </Post>)
+
+
+        productserviceApi.post(`orders`, {order}, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
             .then(res => {
                 console.log(res);
                 console.log(res.data);
             }).catch(error => {
-                console.error("error" + error)
-                alert(error + '! Please login');
+                console.error(error)
+                console.log(order);
+                alert(error);
+
             });
         }
 
     return (
         <div>
             <button onClick={handleClick}>Order now</button>
-
         </div>
     );
 }
