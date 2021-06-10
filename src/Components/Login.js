@@ -1,58 +1,54 @@
 import React, {useState} from 'react';
 import {Post} from "react-axios";
+import productserviceApi from "../productserviceApi";
+import usermanagementApi from "../usermanagementApi";
 
 function Login() {
 
     const [username, setUsername] = useState('user');
     const [password, setPassword] = useState('password');
-    let submitAllowed = false;
 
-    function handleClick() {
-        // submitAllowed = true;
-    }
 
-    function changeUsername(event) {
-        setUsername(event.target.value);
-    }
-    function changePassword(event) {
-        setPassword(event.target.value);
-    }
+    const handleClick = async event => {
+        event.preventDefault();
+        var credentials = {};
+        credentials.username= username;
+        credentials.password= password;
+        if (!sessionStorage.key('token')){
+            usermanagementApi.post(`/users/login`, credentials, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(res => {
+                    // console.log(res.data);
+                    sessionStorage.setItem("token", res.data.token);
+                    sessionStorage.setItem("userId", res.data.userId);
+                    alert("You have successfully logged in!");
+                }).catch(error => {
+                console.error(error);
+                alert(error);
 
+            });
+        } else {
+            alert("You are already logged in!");
+        }
+
+    }
         return (
             <div>
                 <h2>Login</h2>
                 <form onSubmit={handleClick}>
                     <label>
                         Username:
-                        <input type="text"  onChange={changeUsername}/>
+                        <input type="text"  onChange={e => setUsername(e.target.value)}/>
                     </label>
                     <p><label>
                         Password:
-                        <input type="text" onChange={changePassword}/>
+                        <input type="password" onChange={e => setPassword(e.target.value)}/>
                     </label></p>
-                    <input type="submit" value="Submit"/>
+                    <button type="submit">Login</button>
                 </form>
-
-                {!sessionStorage.key('token') &&
-                    <Post url="/users/login" data={{'username': username,
-                        'password': password }}>
-                        {(error, response, isLoading, makeRequest, axios) => {
-                            if(error) {
-                                return (<div>An error occured: {error.message} <button onClick={() => makeRequest({ params: { reload: true } })}>Retry</button></div>)
-                            }
-                            else if(isLoading) {
-                                return (<div>Loading...</div>)
-                            }
-                            else if(response !== null) {
-                                console.log(response.data);
-                                sessionStorage.setItem("token", response.data.token);
-                                sessionStorage.setItem("userId", response.data.userId);
-                            }
-                            return (<div></div>)
-                        }}
-                    </Post>
-
-                }
             </div>
         );
 }

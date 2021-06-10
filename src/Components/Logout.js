@@ -3,7 +3,8 @@ import React from 'react';
 function Logout() {
 
     function handleClick() {
-        sessionStorage.clear()
+        sessionStorage.clear();
+        alert("You have successfully logged out!")
 
     }
 

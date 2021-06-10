@@ -11,42 +11,6 @@ import productserviceApi from "./productserviceApi";
 import usermanagementApi from "./usermanagementApi";
 import AxiosProvider from "react-axios/lib/components/AxiosProvider";
 
-// const authLink = setContext((_, { headers }) => {
-//     // get the authentication token from local storage if it exists
-//     const token = sessionStorage.getItem('token');
-//     console.log(sessionStorage.getItem('token'))
-//     // return the headers to the context so httpLink can read them
-//     if(token){
-//         return {
-//             headers: {
-//                 ...headers,
-//                 Authorization: `Bearer ${token}`,
-//             }
-//         }
-//     }
-// });
-
-
-
-// let token = sessionStorage.getItem('token');
-// let headers = null;
-// if(token){
-//     headers =  {'Authorization': `Bearer ${token}` }
-//
-// }
-//
-// const usermanagement = axios.create({
-//     baseURL: '/usermanagement',
-//     timeout: 2000,
-//     headers: headers
-// });
-//
-// export const axiosProductservice = axios.create({
-//     baseURL: '/productservice',
-//     timeout: 2000,
-//     headers: headers
-// });
-
 function App() {
   return (
 

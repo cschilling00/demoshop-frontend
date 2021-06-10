@@ -1,45 +1,64 @@
-import Product from "./Product";
-import React from 'react';
-import {useQuery} from "@apollo/client";
-import {getOrderByUserIdQuery} from "../constants";
+import React, {useEffect, useState} from 'react';
+import productserviceApi from "../productserviceApi";
+
 function MyOrders() {
     let userId = ""
-    if(sessionStorage.getItem('userId')){
+    const [order, setOrder] = useState([]);
+    if (sessionStorage.getItem('userId')) {
         userId = sessionStorage.getItem('userId')
     }
 
-    const {loading, error, data} = useQuery(getOrderByUserIdQuery, {
-        variables: {id: userId}
-    });
-    if (data){
-        console.log(sessionStorage.getItem('userId'))
-        console.log(data)
-    }
+    useEffect(() => {
+        productserviceApi.get(`orders/myOrders/` + userId)
+            .then(res => {
+                setOrder(res.data);
+                console.log(order);
+                console.log(res.data);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error ${error.message}</p>;
+            }).catch(error => {
+            console.error(error)
+            alert(error);
+        });
+    }, []);
+
 
     return (
         <div>
             <h2>My Orders</h2>
-                {/*<pre>{JSON.stringify(data.getOrderByUserId)}</pre>*/}
-                {data.getOrderByUserId.map(order => (
+            {order.map(or => {
+                return (
                     <div>
-                    <h4>Order: {order.id} ordered at {order.orderDate} for {order.price} €</h4>
-                    <ul>
-                        {order.products.map(product => (
-                            <li >
-                                <Product item={product}>{product.name}</Product>
-                            </li>
-                        ))}
-
-                    </ul>
+                        <h4>Order: {or.id} ordered at {or.orderDate} for {or.price} €</h4>
+                {
+                    or.products.map((product) =>{
+                        return(<div>{product.name}</div>)
+                    })
+                }
                     </div>
-                ))}
+            )
 
-        </div>
-    );
+            })}
+
+</div>
+)
+;
+
 
 }
 
 export default MyOrders;
+/*
+return (
+    <div>
+        {order ? order.id}
+        <h4>Order: {res.data[0].id}</h4>
+        <h4>Order: {res.data.id} ordered at {res.data.orderDate} for {res.data.price} €</h4>
+        <ul>
+            {res.data.products.map(item => (
+                <li key={item.id}>
+                    <Product item={item}>{item.name}</Product>
+                </li>
+            ))}
+        </ul>
+    </div>
+)*/

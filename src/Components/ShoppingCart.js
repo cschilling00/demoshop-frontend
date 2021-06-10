@@ -6,23 +6,6 @@ import {Get} from "react-axios";
 import AddToShoppingCart from "./AddToShoppingCart";
 
 function ShoppingCart() {
-    // if (response.data){
-    //     let products = response.data;
-    // }
-    //
-    // let shoppingList = [];
-    //
-    // for (let i = 0; i < localStorage.length; i++){
-    //     let key = localStorage.key(i);
-    //     let value = localStorage.getItem(key);
-    //     console.log(key, value);
-    //
-    //     for (let product of response.data){
-    //         if (product.id === value){
-    //             shoppingList.push(product)
-    //         }
-    //     }
-    // }
 
     function handleClick() {
         localStorage.clear()
@@ -52,7 +35,6 @@ function ShoppingCart() {
                             }
                         }
                     }
-                    console.log(response.data)
                     return (
                         <div>
                             <h3>Shopping Cart</h3>

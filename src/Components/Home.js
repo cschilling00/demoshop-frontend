@@ -3,7 +3,6 @@ import React from 'react';
 import { Get } from 'react-axios'
 
 function Home() {
-    sessionStorage.setItem('token', "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaXNzIjoicHJvZHVjdHNlcnZpY2UtYXBpIiwiaWQiOiI2MDJhNzQxNjRmOWZmNjQwOGFhZDVkYTYiLCJleHAiOjE2MTcxNTIxNjEsImlhdCI6MTYxNzEzNzc2MX0.49kB8rqxv7_6OwHVypmG-ZEEQdOuotQ16iqIKssKu1AlXX8fGo0SqbMVkl0kqD_R-zaR4hLZ03ZJQ98FOXvsBQ")
     return (
     <div>
         <Get url="/products">

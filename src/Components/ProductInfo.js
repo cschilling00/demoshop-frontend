@@ -4,8 +4,7 @@ import {Get} from "react-axios";
 
 function ProductInfo() {
     let { id } = useParams();
-
-
+    
     return (
         <Get url="/products" params={{id: id}}>
             {(error, response, isLoading, makeRequest, axios) => {
@@ -31,8 +30,6 @@ function ProductInfo() {
                 return (<div></div>)
             }}
         </Get>
-
     );
-
 }
 export default ProductInfo;
