@@ -22,16 +22,12 @@ function CreateOrder(props) {
                 },
                 variables: {order: {id: "", orderDate: new Date().toLocaleDateString(), price: price, products: products, userId: userId }}
             }).catch(error => {
-                console.error("error" + error)
-                alert(error + '! Please login');
+                alert(error);
             });
         }
 
     return (
-        <div>
-            <button onClick={handleClick}>Order now</button>
-
-        </div>
+        <button className='btn' onClick={handleClick}>Order now</button>
     );
 }
 

@@ -19,7 +19,7 @@ function ProductInfo() {
             <p>Price: {data.getProductById.price}</p>
             <p>Description: {data.getProductById.description}</p>
             <p>Category: {data.getProductById.category}</p>
-            <AddToShoppingCart id={id}></AddToShoppingCart>
+            <AddToShoppingCart id={id}/>
         </div>
     );
 

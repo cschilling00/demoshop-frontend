@@ -26,7 +26,7 @@ function MyOrders() {
                 {/*<pre>{JSON.stringify(data.getOrderByUserId)}</pre>*/}
                 {data.getOrderByUserId.map(order => (
                     <div>
-                    <h4>Order: {order.id} ordered at {order.orderDate} for {order.price} €</h4>
+                    Order: {order.id} ordered at {order.orderDate} for {order.price}€
                     <ul>
                         {order.products.map(product => (
                             <li >

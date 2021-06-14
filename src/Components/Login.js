@@ -45,9 +45,9 @@ function Login() {
                     </label>
                     <p><label>
                         Password:
-                        <input type="text" onChange={changePassword}/>
+                        <input type="password" onChange={changePassword}/>
                     </label></p>
-                    <input type="submit" value="Submit"/>
+                    <input className='btn'  type="submit" value="Login"/>
                 </form>
             </div>
         );
