@@ -46,8 +46,8 @@ function ShoppingCart() {
                                     </li>
                                 ))}
                             </ul>
-                            <CreateOrder products={shoppingList}></CreateOrder>
-                            <button onClick={handleClick}>Clear shopping cart</button>
+                            <CreateOrder products={shoppingList}/>
+                            <button className='btn actions' onClick={handleClick}>Clear shopping cart</button>
 
                         </div>
                     )

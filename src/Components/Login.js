@@ -24,7 +24,6 @@ function Login() {
                     // console.log(res.data);
                     sessionStorage.setItem("token", res.data.token);
                     sessionStorage.setItem("userId", res.data.userId);
-                    alert("You have successfully logged in!");
                 }).catch(error => {
                 console.error(error);
                 alert(error);
@@ -47,7 +46,7 @@ function Login() {
                         Password:
                         <input type="password" onChange={e => setPassword(e.target.value)}/>
                     </label></p>
-                    <button type="submit">Login</button>
+                    <button className='btn' type="submit">Login</button>
                 </form>
             </div>
         );

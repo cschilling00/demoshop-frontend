@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import productserviceApi from "../productserviceApi";
+import Product from "./Product";
 
 function MyOrders() {
     let userId = ""
@@ -17,7 +18,6 @@ function MyOrders() {
 
             }).catch(error => {
             console.error(error)
-            alert(error);
         });
     }, []);
 
@@ -31,7 +31,9 @@ function MyOrders() {
                         <h4>Order: {or.id} ordered at {or.orderDate} for {or.price} €</h4>
                 {
                     or.products.map((product) =>{
-                        return(<div>{product.name}</div>)
+                        return(<div>
+                            <li><Product item={product}>{product.name}</Product></li>
+                        </div>)
                     })
                 }
                     </div>

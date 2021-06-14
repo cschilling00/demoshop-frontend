@@ -23,11 +23,11 @@ function ProductInfo() {
                             <p>Price: {response.data[0].price}</p>
                             <p>Description: {response.data[0].description}</p>
                             <p>Category: {response.data[0].category}</p>
-                            <AddToShoppingCart id={id}></AddToShoppingCart>
+                            <AddToShoppingCart id={id}/>
                         </div>
                     )
                 }
-                return (<div></div>)
+                return (<div/>)
             }}
         </Get>
     );

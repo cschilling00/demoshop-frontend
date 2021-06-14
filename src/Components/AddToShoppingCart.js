@@ -11,7 +11,7 @@ function AddToShoppingCart(props) {
     }
         return (
             <div>
-                <button onClick={handleClick}>Add to Shopping Cart</button>
+                <button className='btn' onClick={handleClick}>Add to Shopping Cart</button>
             </div>
         );
 }

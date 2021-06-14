@@ -28,9 +28,7 @@ function CreateOrder(props) {
         }
 
     return (
-        <div>
-            <button onClick={handleClick}>Order now</button>
-        </div>
+         <button className='btn' onClick={handleClick}>Order now</button>
     );
 }
 
